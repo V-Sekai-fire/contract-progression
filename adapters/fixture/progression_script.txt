@@ -1,0 +1,18 @@
+grant 7
+grant 7
+sell 7 100
+buyArt 1
+train
+train
+train
+train
+train
+train
+train
+train
+train
+train
+buyArt 2
+buyArt 3
+grant 2
+sell 9 50

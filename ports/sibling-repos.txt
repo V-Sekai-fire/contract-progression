@@ -1,0 +1,5 @@
+# progression hexagon wiring
+login                       profile load            -> profile_source
+loot                        inventory delta in      -> (applies grant events)
+zone-backend + cockroach    durable commit          <- commit_sink
+feat/module-sqlite          degraded commit valve   <- commit_sink
