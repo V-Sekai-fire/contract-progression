@@ -4,7 +4,7 @@ The progression hexagon: a dependency-free core holding the profile and
 inventory rules — credits, the affinity gate on arts, valid item transitions —
 behind narrow ports, with the sqlite commit valve as a working adapter.
 
-It follows the V-Sekai `core/` + `ports/` + `adapters/` triad
+It follows the V-Sekai `core/` + `repository/` + `adapters/` triad
 ([hexagonal decision](https://v-sekai-multiplayer-fabric.github.io/manuals/decisions/20260610-hexagonal-core-ports-adapters.html))
 and the [progression hexagon decision](https://v-sekai-multiplayer-fabric.github.io/manuals/decisions/20260611-hexagon-progression-core.html).
 
