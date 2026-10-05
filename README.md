@@ -1,41 +1,21 @@
-# progression
+# contract-progression
 
-The progression hexagon: a dependency-free core holding the profile and
-inventory rules — credits, the affinity gate on arts, valid item transitions —
-behind narrow ports, with the sqlite commit valve as a working adapter.
+The progression hexagon: a dependency-free Lean core for profile and inventory rules, its ports, and a database commit valve adapter.
 
-It follows the V-Sekai `core/` + `repository/` + `adapters/` triad
-([hexagonal decision](https://v-sekai-multiplayer-fabric.github.io/manuals/decisions/20260610-hexagonal-core-ports-adapters.html))
-and the [progression hexagon decision](https://v-sekai-multiplayer-fabric.github.io/manuals/decisions/20260611-hexagon-progression-core.html).
+## What it is for
 
-## The core
+The core is a pure reducer over a player's profile: grants add items, a sale needs the item and pays out, an art purchase needs its affinity requirement and the credits, and training raises affinity. Refusals are explicit effects. Fixtures pin each refusal, and property tests hold the affinity gate and the item and credit invariants under any event stream. The adapter replays the Lean script in the engine, commits the profile to SQLite, reopens the database cold and checks the reloaded profile against the Lean golden.
 
-`core/ProgressionCore/Core.lean` is the pure reducer over the profile: grants
-add items, sells require the item and pay out, an art purchase needs the
-affinity requirement and the credits (refusals are explicit effects), and
-training raises affinity.
-
-- `#guard` fixtures pin the gate, the duplicate refusal, the unfunded refusal,
-  and the sell-without-item refusal.
-- Plausible properties: the affinity gate holds under any event stream, item
-  counts stay positive and arts unique, and credits move only by priced amounts.
-- `lake exe progression_emit` writes the script and the golden final profile.
-
-## The sqlite valve
-
-`adapters/godot-sqlite/progression_sqlite.gd` applies the Lean script in the
-merged build, commits the profile through `feat/module-sqlite` (the degraded
-`commit_sink` of the progression decision), reopens the database cold, and
-asserts the reloaded profile equals the Lean golden.
+## Build
 
 ```sh
-GODOT=bin/godot.linuxbsd.editor.double.x86_64
-PROG_SCRIPT=adapters/fixture/progression_script.txt \
-PROG_GOLDEN=adapters/fixture/progression_golden.csv \
-PROG_DB=/tmp/profile.db \
-$GODOT --headless --script adapters/godot-sqlite/progression_sqlite.gd
-# -> PROGRESSION SQLITE PASS: reloaded profile matches the Lean golden
+cd core
+lake build
+lake exe progression_emit
 ```
 
-The cockroach + zone-backend adapter is the durable path; this valve keeps the
-loop demonstrable without it.
+The second command writes the event script and the golden final profile the adapter checks against.
+
+## Licence
+
+The licence is not stated.
