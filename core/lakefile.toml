@@ -4,7 +4,7 @@ defaultTargets = ["ProgressionCore"]
 [[require]]
 name = "Plausible"
 git = "https://github.com/leanprover-community/plausible"
-rev = "v4.30.0"
+rev = "v4.34.0"
 
 [[lean_lib]]
 name = "ProgressionCore"
