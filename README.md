@@ -18,4 +18,4 @@ The second command writes the event script and the golden final profile the adap
 
 ## Licence
 
-The licence is not stated.
+MIT. See [LICENSE](LICENSE).
